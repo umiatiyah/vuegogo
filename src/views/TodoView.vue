@@ -11,7 +11,7 @@
           <div class="pekerjaan-rumah">
             <div class="row">
               <div class="tugas col-lg-12 mb-4 text-start" v-for="tugasSaya in tugas" v-bind:key="tugasSaya.id">
-                <ItemTugas v-bind:tugasSaya = "tugasSaya" />
+                <ItemTugas v-bind:tugasSaya = "tugasSaya" @clicked="updateStatus($event, tugasSaya.id)" />
               </div>              
             </div>
           </div>          
@@ -56,6 +56,15 @@ export default {
   },
   components: {
     ItemTugas
+  },
+  methods: {
+    updateStatus(event, val) {
+      this.tugas.filter(function (t) {
+        if (t.id == val) {
+          return t.isDone = event;
+        }
+      });
+    }
   }
 }
 </script>
@@ -70,9 +79,5 @@ export default {
 
 .tugas .item {
   font-size: 20px;
-}
-
-.item-completed {
-  color: #1abc9c;
 }
 </style>
